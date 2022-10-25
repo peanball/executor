@@ -1,6 +1,7 @@
 package containerstore_test
 
 import (
+	"net/http"
 	"os"
 	"time"
 
@@ -24,6 +25,9 @@ func TestContainerstore(t *testing.T) {
 	}
 	_ = pprof.StartCPUProfile(pf)
 	defer pprof.StopCPUProfile()
+	go func() {
+		http.ListenAndServe("localhost:6060", nil)
+	}()
 	RunSpecs(t, "Containerstore Suite")
 }
 
