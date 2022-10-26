@@ -24,7 +24,8 @@ func TestContainerstore(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	_ = pprof.StartCPUProfile(pf)
+	defer pf.Close()
+	pprof.StartCPUProfile(pf)
 	defer pprof.StopCPUProfile()
 	go func() {
 		http.ListenAndServe("localhost:6060", nil)
