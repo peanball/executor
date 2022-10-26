@@ -18,12 +18,14 @@ func TestContainerstore(t *testing.T) {
 	SetDefaultConsistentlyDuration(5 * time.Second)
 	SetDefaultEventuallyTimeout(5 * time.Second)
 	RegisterFailHandler(Fail)
-	pf, err := os.Create("cpu.prof")
+
+	pf, err := os.Create("cpu_prof.pb.gz")
 	if err != nil {
 		panic(err)
 	}
 	_ = pprof.StartCPUProfile(pf)
 	defer pprof.StopCPUProfile()
+
 	RunSpecs(t, "Containerstore Suite")
 }
 
